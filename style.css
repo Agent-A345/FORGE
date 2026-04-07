@@ -1,0 +1,817 @@
+/* ══════════════════════════════════════════
+   FORGE — Code Playground
+   style.css
+   ══════════════════════════════════════════ */
+
+/* ─── 1. Tokens & Variables ─── */
+:root {
+  /* Dark theme (default) */
+  --bg-base:       #0d0e11;
+  --bg-surface:    #14151a;
+  --bg-raised:     #1c1e26;
+  --bg-hover:      #242630;
+  --bg-active:     #2c2f3d;
+
+  --border:        #2a2d3a;
+  --border-subtle: #1e2028;
+
+  --text-primary:  #e8eaf0;
+  --text-secondary:#8b8fa8;
+  --text-muted:    #505468;
+  --text-ghost:    #3a3d4d;
+
+  --accent:        #7c6dfa;       /* purple-ish */
+  --accent-glow:   rgba(124, 109, 250, 0.18);
+  --accent-text:   #a99bff;
+
+  --dot-html:      #f9826c;
+  --dot-css:       #58a6ff;
+  --dot-js:        #f9c943;
+
+  --log-color:     #8b8fa8;
+  --warn-color:    #f9c943;
+  --error-color:   #ff6b6b;
+
+  --run-btn:       #7c6dfa;
+  --run-btn-hover: #9080ff;
+
+  --topbar-h:      46px;
+  --console-collapsed: 34px;
+
+  --font-code:     'JetBrains Mono', monospace;
+  --font-ui:       'Syne', sans-serif;
+
+  --radius-sm:     4px;
+  --radius-md:     6px;
+  --radius-lg:     10px;
+
+  --transition:    150ms ease;
+}
+
+[data-theme="light"] {
+  --bg-base:       #f0f1f5;
+  --bg-surface:    #fafafa;
+  --bg-raised:     #ffffff;
+  --bg-hover:      #ececf0;
+  --bg-active:     #e2e2e8;
+
+  --border:        #d8d9e0;
+  --border-subtle: #eaeaee;
+
+  --text-primary:  #1a1b22;
+  --text-secondary:#5a5d70;
+  --text-muted:    #9ea0ad;
+  --text-ghost:    #c8c9d0;
+
+  --accent:        #6355e8;
+  --accent-glow:   rgba(99, 85, 232, 0.12);
+  --accent-text:   #6355e8;
+
+  --log-color:     #5a5d70;
+  --warn-color:    #c08000;
+  --error-color:   #d93025;
+}
+
+/* ─── 2. Reset & Base ─── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html, body {
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+  font-family: var(--font-ui);
+  background: var(--bg-base);
+  color: var(--text-primary);
+  font-size: 13px;
+  -webkit-font-smoothing: antialiased;
+}
+
+button {
+  font-family: var(--font-ui);
+  cursor: pointer;
+  border: none;
+  background: none;
+  color: inherit;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  transition: all var(--transition);
+}
+
+/* ─── 3. Layout Shell ─── */
+.topbar {
+  height: var(--topbar-h);
+  background: var(--bg-surface);
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  padding: 0 12px;
+  gap: 8px;
+  position: relative;
+  z-index: 100;
+}
+
+.workspace {
+  display: flex;
+  height: calc(100vh - var(--topbar-h) - var(--console-collapsed));
+  overflow: hidden;
+  transition: height var(--transition);
+}
+
+/* ─── 4. Top Bar Sections ─── */
+.topbar-left, .topbar-right {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex: 1;
+}
+
+.topbar-right { justify-content: flex-end; }
+
+.topbar-center {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* Logo */
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding-right: 12px;
+  border-right: 1px solid var(--border);
+  margin-right: 4px;
+}
+
+.logo-icon {
+  font-size: 18px;
+  color: var(--accent);
+  line-height: 1;
+  animation: spin-hex 10s linear infinite;
+}
+
+@keyframes spin-hex {
+  from { filter: hue-rotate(0deg); }
+  to   { filter: hue-rotate(360deg); }
+}
+
+.logo-text {
+  font-size: 15px;
+  font-weight: 800;
+  color: var(--text-primary);
+  letter-spacing: -0.02em;
+}
+
+/* ─── 5. Buttons ─── */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 5px 10px;
+  border-radius: var(--radius-sm);
+  font-size: 12px;
+  font-weight: 600;
+  white-space: nowrap;
+  transition: all var(--transition);
+}
+
+.btn-ghost {
+  color: var(--text-secondary);
+  background: transparent;
+}
+
+.btn-ghost:hover {
+  background: var(--bg-hover);
+  color: var(--text-primary);
+}
+
+.btn-ghost:active { background: var(--bg-active); }
+
+.btn-run {
+  background: var(--run-btn);
+  color: #fff;
+  padding: 5px 14px;
+  border-radius: var(--radius-sm);
+  box-shadow: 0 0 12px var(--accent-glow);
+  font-size: 12px;
+}
+
+.btn-run:hover {
+  background: var(--run-btn-hover);
+  box-shadow: 0 0 18px rgba(124,109,250,0.3);
+  transform: translateY(-1px);
+}
+
+.btn-run:active { transform: translateY(0); }
+
+.btn.icon-only { padding: 5px 7px; }
+
+button:disabled { opacity: 0.3; cursor: not-allowed; }
+
+/* ─── 6. Toggle ─── */
+.toggle-wrap {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+  user-select: none;
+}
+
+.toggle-wrap input { display: none; }
+
+.toggle-track {
+  width: 30px;
+  height: 16px;
+  background: var(--border);
+  border-radius: 99px;
+  position: relative;
+  transition: background var(--transition);
+}
+
+.toggle-thumb {
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 12px;
+  height: 12px;
+  background: var(--text-muted);
+  border-radius: 50%;
+  transition: transform var(--transition), background var(--transition);
+}
+
+.toggle-wrap input:checked ~ .toggle-track { background: var(--accent); }
+.toggle-wrap input:checked ~ .toggle-track .toggle-thumb {
+  transform: translateX(14px);
+  background: #fff;
+}
+
+.toggle-label {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--text-secondary);
+  letter-spacing: 0.04em;
+}
+
+/* ─── 7. Dropdowns ─── */
+.templates-wrap, .libraries-wrap { position: relative; }
+
+.dropdown {
+  position: absolute;
+  top: calc(100% + 6px);
+  left: 0;
+  min-width: 160px;
+  background: var(--bg-raised);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  box-shadow: 0 12px 30px rgba(0,0,0,0.3);
+  z-index: 999;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(-4px);
+  transition: all 120ms ease;
+  overflow: hidden;
+}
+
+.dropdown.open {
+  opacity: 1;
+  pointer-events: all;
+  transform: translateY(0);
+}
+
+.dropdown-right { left: auto; right: 0; }
+
+.dropdown-item {
+  padding: 8px 14px;
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-secondary);
+  transition: all var(--transition);
+  font-family: var(--font-ui);
+}
+
+.dropdown-item:hover {
+  background: var(--bg-hover);
+  color: var(--text-primary);
+  padding-left: 18px;
+}
+
+.dropdown-check {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 14px;
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-secondary);
+  transition: background var(--transition);
+  font-family: var(--font-ui);
+}
+
+.dropdown-check:hover { background: var(--bg-hover); color: var(--text-primary); }
+
+.dropdown-check input[type="checkbox"] {
+  accent-color: var(--accent);
+  width: 13px;
+  height: 13px;
+  cursor: pointer;
+}
+
+/* ─── 8. Editor Panel ─── */
+.editor-panel {
+  display: flex;
+  flex-direction: column;
+  width: 46%;
+  min-width: 200px;
+  background: var(--bg-surface);
+  border-right: 1px solid var(--border);
+  overflow: hidden;
+}
+
+/* Tab bar */
+.tab-bar {
+  display: flex;
+  align-items: stretch;
+  background: var(--bg-base);
+  border-bottom: 1px solid var(--border);
+  min-height: 36px;
+  padding: 0 4px;
+  gap: 2px;
+  flex-shrink: 0;
+}
+
+.tab {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 0 14px;
+  font-size: 11.5px;
+  font-weight: 700;
+  color: var(--text-muted);
+  border-radius: var(--radius-sm) var(--radius-sm) 0 0;
+  position: relative;
+  letter-spacing: 0.04em;
+  transition: all var(--transition);
+  border-bottom: 2px solid transparent;
+}
+
+.tab:hover { color: var(--text-secondary); background: var(--bg-hover); }
+
+.tab.active {
+  color: var(--text-primary);
+  border-bottom-color: var(--accent);
+  background: var(--bg-surface);
+}
+
+.tab-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.dot-html { background: var(--dot-html); }
+.dot-css  { background: var(--dot-css);  }
+.dot-js   { background: var(--dot-js);   }
+
+.tab-spacer { flex: 1; }
+
+.tab-action {
+  align-self: center;
+  color: var(--text-muted);
+}
+
+/* Editor panes */
+.editor-panes {
+  flex: 1;
+  position: relative;
+  overflow: hidden;
+}
+
+.editor-pane {
+  position: absolute;
+  inset: 0;
+  display: none;
+  flex-direction: row;
+  background: var(--bg-surface);
+}
+
+.editor-pane.active {
+  display: flex;
+  animation: fadeIn 120ms ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+/* Line gutter */
+.line-gutter {
+  width: 44px;
+  padding: 14px 8px 14px 0;
+  text-align: right;
+  font-family: var(--font-code);
+  font-size: 12px;
+  color: var(--text-ghost);
+  line-height: 1.7;
+  background: var(--bg-base);
+  border-right: 1px solid var(--border-subtle);
+  overflow: hidden;
+  user-select: none;
+  flex-shrink: 0;
+}
+
+/* Code textarea */
+.code-area {
+  flex: 1;
+  background: transparent;
+  border: none;
+  outline: none;
+  resize: none;
+  font-family: var(--font-code);
+  font-size: 13px;
+  line-height: 1.7;
+  color: var(--text-primary);
+  padding: 14px 16px;
+  tab-size: 2;
+  white-space: pre;
+  overflow-wrap: normal;
+  overflow-x: auto;
+  overflow-y: auto;
+  caret-color: var(--accent);
+  letter-spacing: 0.01em;
+}
+
+.code-area::selection {
+  background: var(--accent-glow);
+}
+
+.code-area::-webkit-scrollbar { width: 6px; height: 6px; }
+.code-area::-webkit-scrollbar-track { background: transparent; }
+.code-area::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+
+/* ─── 9. Resizer ─── */
+.resizer {
+  width: 5px;
+  background: var(--border);
+  cursor: col-resize;
+  flex-shrink: 0;
+  position: relative;
+  transition: background var(--transition);
+}
+
+.resizer::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 1px;
+  height: 32px;
+  background: var(--text-ghost);
+  border-radius: 2px;
+}
+
+.resizer:hover, .resizer.dragging {
+  background: var(--accent);
+}
+
+/* ─── 10. Preview Panel ─── */
+.preview-panel {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  background: var(--bg-base);
+  overflow: hidden;
+}
+
+.preview-bar {
+  height: 36px;
+  background: var(--bg-surface);
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  padding: 0 8px 0 12px;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.preview-title {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--text-muted);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  flex: 1;
+}
+
+.preview-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #3ddc84;
+  box-shadow: 0 0 6px rgba(61, 220, 132, 0.5);
+  animation: pulse-dot 2s ease infinite;
+}
+
+@keyframes pulse-dot {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.4; }
+}
+
+/* Preview mode buttons */
+.preview-modes {
+  display: flex;
+  gap: 2px;
+}
+
+.mode-btn {
+  padding: 4px 6px;
+  border-radius: var(--radius-sm);
+  color: var(--text-muted);
+  transition: all var(--transition);
+}
+
+.mode-btn:hover { background: var(--bg-hover); color: var(--text-secondary); }
+
+.mode-btn.active {
+  background: var(--bg-active);
+  color: var(--accent-text);
+}
+
+/* iframe wrapper */
+.iframe-wrap {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  overflow: auto;
+  padding: 0;
+  background: var(--bg-base);
+  transition: all var(--transition);
+}
+
+.iframe-wrap.mode-desktop  { padding: 0; }
+.iframe-wrap.mode-tablet   { padding: 12px; background: var(--bg-raised); }
+.iframe-wrap.mode-mobile   { padding: 16px; background: var(--bg-raised); }
+
+#preview {
+  width: 100%;
+  height: 100%;
+  border: none;
+  display: block;
+  background: #fff;
+  transition: width var(--transition), box-shadow var(--transition);
+}
+
+.iframe-wrap.mode-tablet #preview {
+  width: 768px;
+  height: 100%;
+  min-height: 500px;
+  border-radius: var(--radius-lg);
+  box-shadow: 0 8px 30px rgba(0,0,0,0.3);
+}
+
+.iframe-wrap.mode-mobile #preview {
+  width: 375px;
+  height: 100%;
+  min-height: 600px;
+  border-radius: var(--radius-lg);
+  box-shadow: 0 8px 30px rgba(0,0,0,0.3);
+}
+
+/* ─── 11. Console Panel ─── */
+.console-panel {
+  height: var(--console-collapsed);
+  background: var(--bg-surface);
+  border-top: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  transition: height 220ms cubic-bezier(0.4,0,0.2,1);
+  position: relative;
+  z-index: 50;
+}
+
+.console-panel.open {
+  height: 200px;
+}
+
+.console-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 8px;
+  height: var(--console-collapsed);
+  flex-shrink: 0;
+  cursor: pointer;
+}
+
+.console-bar:hover { background: var(--bg-hover); }
+
+.console-bar-left {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.console-bar-right {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.console-toggle-btn {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 11.5px;
+  font-weight: 700;
+  color: var(--text-secondary);
+  letter-spacing: 0.04em;
+}
+
+.console-filters {
+  display: flex;
+  gap: 2px;
+  opacity: 0;
+  transition: opacity var(--transition);
+  pointer-events: none;
+}
+
+.console-panel.open .console-filters {
+  opacity: 1;
+  pointer-events: all;
+}
+
+.filter-btn {
+  padding: 2px 8px;
+  border-radius: 99px;
+  font-size: 10.5px;
+  font-weight: 600;
+  color: var(--text-muted);
+  transition: all var(--transition);
+}
+
+.filter-btn:hover { background: var(--bg-hover); color: var(--text-secondary); }
+
+.filter-btn.active {
+  background: var(--bg-active);
+  color: var(--text-primary);
+}
+
+.log-count {
+  font-size: 10px;
+  font-weight: 700;
+  background: var(--bg-active);
+  color: var(--text-secondary);
+  border-radius: 99px;
+  padding: 1px 6px;
+  min-width: 18px;
+  text-align: center;
+  font-family: var(--font-code);
+}
+
+/* Console output */
+.console-output {
+  flex: 1;
+  overflow-y: auto;
+  padding: 4px 0;
+  font-family: var(--font-code);
+  font-size: 11.5px;
+}
+
+.console-output::-webkit-scrollbar { width: 4px; }
+.console-output::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+.log-entry {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  padding: 3px 16px;
+  transition: background var(--transition);
+}
+
+.log-entry:hover { background: var(--bg-hover); }
+
+.log-entry.log   .log-icon { color: var(--log-color);   }
+.log-entry.warn  .log-icon { color: var(--warn-color);   }
+.log-entry.error .log-icon { color: var(--error-color);  }
+
+.log-entry.warn  { border-left: 2px solid var(--warn-color);  }
+.log-entry.error { border-left: 2px solid var(--error-color); }
+
+.log-icon { font-size: 9px; flex-shrink: 0; }
+
+.log-text {
+  flex: 1;
+  color: var(--text-secondary);
+  word-break: break-all;
+}
+
+.log-entry.warn  .log-text { color: var(--warn-color);  }
+.log-entry.error .log-text { color: var(--error-color); }
+
+.log-time {
+  color: var(--text-ghost);
+  font-size: 10px;
+  flex-shrink: 0;
+}
+
+/* ─── 12. Toast ─── */
+.toast {
+  position: fixed;
+  bottom: 60px;
+  left: 50%;
+  transform: translateX(-50%) translateY(10px);
+  background: var(--bg-raised);
+  color: var(--text-primary);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 8px 16px;
+  font-size: 12px;
+  font-weight: 600;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+  opacity: 0;
+  pointer-events: none;
+  transition: all 200ms ease;
+  z-index: 9999;
+  white-space: nowrap;
+}
+
+.toast.show {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+/* ─── 13. Theme Icons ─── */
+[data-theme="dark"] .icon-moon { display: none; }
+[data-theme="dark"] .icon-sun  { display: block; }
+[data-theme="light"] .icon-sun  { display: none; }
+[data-theme="light"] .icon-moon { display: block; }
+
+/* ─── 14. Saved indicator on tab bar ─── */
+.save-indicator {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--accent);
+  margin-left: auto;
+  animation: fadeIn 200ms ease;
+}
+
+/* ─── 15. Scrollbars (global) ─── */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: var(--text-ghost); }
+
+/* ─── 16. Responsive ─── */
+@media (max-width: 768px) {
+  .workspace {
+    flex-direction: column;
+  }
+
+  .editor-panel {
+    width: 100%;
+    height: 50%;
+    border-right: none;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .resizer {
+    display: none;
+  }
+
+  .preview-panel {
+    height: 50%;
+  }
+
+  .topbar-right .btn-ghost span:not(:empty) { display: none; }
+
+  .logo-text { display: none; }
+
+  .preview-modes { display: none; }
+}
+
+@media (max-width: 480px) {
+  .toggle-label { display: none; }
+  .topbar { padding: 0 8px; gap: 4px; }
+}
+
+/* ─── 17. Focus Styles ─── */
+button:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+/* ─── 18. Intro pulse on editor ─── */
+.code-area:focus {
+  box-shadow: inset 3px 0 0 var(--accent-glow);
+}

@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Forge — Code Playground</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,300;0,400;0,500;0,700;1,400&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- ═══ TOP BAR ═══ -->
+  <header class="topbar">
+    <div class="topbar-left">
+      <div class="logo">
+        <span class="logo-icon">⬡</span>
+        <span class="logo-text">Forge</span>
+      </div>
+      <div class="templates-wrap">
+        <button class="btn btn-ghost" id="templates-btn">
+          <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor"><path d="M1 2.5A1.5 1.5 0 0 1 2.5 1h3A1.5 1.5 0 0 1 7 2.5v3A1.5 1.5 0 0 1 5.5 7h-3A1.5 1.5 0 0 1 1 5.5v-3zm8 0A1.5 1.5 0 0 1 10.5 1h3A1.5 1.5 0 0 1 15 2.5v3A1.5 1.5 0 0 1 13.5 7h-3A1.5 1.5 0 0 1 9 5.5v-3zm-8 8A1.5 1.5 0 0 1 2.5 9h3A1.5 1.5 0 0 1 7 10.5v3A1.5 1.5 0 0 1 5.5 15h-3A1.5 1.5 0 0 1 1 13.5v-3zm8 0A1.5 1.5 0 0 1 10.5 9h3A1.5 1.5 0 0 1 15 10.5v3A1.5 1.5 0 0 1 13.5 15h-3A1.5 1.5 0 0 1 9 13.5v-3z"/></svg>
+          Templates
+          <svg width="10" height="10" viewBox="0 0 16 16" fill="currentColor"><path d="M7.247 11.14L2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z"/></svg>
+        </button>
+        <div class="dropdown" id="templates-dropdown">
+          <div class="dropdown-item" data-template="empty">Empty</div>
+          <div class="dropdown-item" data-template="landing">Landing Page</div>
+          <div class="dropdown-item" data-template="form">Styled Form</div>
+          <div class="dropdown-item" data-template="animation">CSS Animation</div>
+          <div class="dropdown-item" data-template="clock">Analog Clock</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="topbar-center">
+      <!-- auto-run toggle -->
+      <label class="toggle-wrap" title="Auto-run on typing">
+        <input type="checkbox" id="autorun-toggle" checked />
+        <span class="toggle-track">
+          <span class="toggle-thumb"></span>
+        </span>
+        <span class="toggle-label">Auto</span>
+      </label>
+
+      <button class="btn btn-run" id="run-btn">
+        <svg width="12" height="12" viewBox="0 0 16 16" fill="currentColor"><path d="M11.596 8.697l-6.363 3.692c-.54.313-1.233-.066-1.233-.697V4.308c0-.63.692-1.01 1.233-.696l6.363 3.692a.802.802 0 0 1 0 1.393z"/></svg>
+        Run
+      </button>
+    </div>
+
+    <div class="topbar-right">
+      <div class="libraries-wrap">
+        <button class="btn btn-ghost" id="libs-btn">
+          <svg width="13" height="13" viewBox="0 0 16 16" fill="currentColor"><path d="M3 2v4.586l7 7L14.586 9l-7-7H3zM2 2a1 1 0 0 1 1-1h4.586a1 1 0 0 1 .707.293l7 7a1 1 0 0 1 0 1.414l-4.586 4.586a1 1 0 0 1-1.414 0l-7-7A1 1 0 0 1 2 6.586V2z"/><path d="M5.5 5a.5.5 0 1 1 0-1 .5.5 0 0 1 0 1zm0 1a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3z"/></svg>
+          Libraries
+        </button>
+        <div class="dropdown dropdown-right" id="libs-dropdown">
+          <label class="dropdown-check">
+            <input type="checkbox" id="lib-bootstrap"> Bootstrap 5
+          </label>
+          <label class="dropdown-check">
+            <input type="checkbox" id="lib-tailwind"> Tailwind CSS
+          </label>
+          <label class="dropdown-check">
+            <input type="checkbox" id="lib-animate"> Animate.css
+          </label>
+        </div>
+      </div>
+
+      <button class="btn btn-ghost" id="save-btn" title="Save (Ctrl+S)">
+        <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor"><path d="M2 1a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H9.5a1 1 0 0 0-1 1v7.293l2.646-2.647a.5.5 0 0 1 .708.708l-3.5 3.5a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L7.5 9.293V2a2 2 0 0 1 2-2H14a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2h2.5a.5.5 0 0 1 0 1H2z"/></svg>
+        Save
+      </button>
+
+      <button class="btn btn-ghost" id="export-btn" title="Export as HTML">
+        <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor"><path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z"/><path d="M7.646 11.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V1.5a.5.5 0 0 0-1 0v8.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3z"/></svg>
+        Export
+      </button>
+
+      <button class="btn btn-ghost icon-only" id="theme-btn" title="Toggle theme">
+        <svg class="icon-sun" width="15" height="15" viewBox="0 0 16 16" fill="currentColor"><path d="M8 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8zM8 0a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 0zm0 13a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 13zm8-5a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2a.5.5 0 0 1 .5.5zM3 8a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2A.5.5 0 0 1 3 8zm10.657-5.657a.5.5 0 0 1 0 .707l-1.414 1.415a.5.5 0 1 1-.707-.708l1.414-1.414a.5.5 0 0 1 .707 0zm-9.193 9.193a.5.5 0 0 1 0 .707L3.05 13.657a.5.5 0 0 1-.707-.707l1.414-1.414a.5.5 0 0 1 .707 0zm9.193 2.121a.5.5 0 0 1-.707 0l-1.414-1.414a.5.5 0 0 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .707zM4.464 4.465a.5.5 0 0 1-.707 0L2.343 3.05a.5.5 0 1 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .708z"/></svg>
+        <svg class="icon-moon" width="14" height="14" viewBox="0 0 16 16" fill="currentColor"><path d="M6 .278a.768.768 0 0 1 .08.858 7.208 7.208 0 0 0-.878 3.46c0 4.021 3.278 7.277 7.318 7.277.527 0 1.04-.055 1.533-.16a.787.787 0 0 1 .81.316.733.733 0 0 1-.031.893A8.349 8.349 0 0 1 8.344 16C3.734 16 0 12.286 0 7.71 0 4.266 2.114 1.312 5.124.06A.752.752 0 0 1 6 .278z"/></svg>
+      </button>
+    </div>
+  </header>
+
+  <!-- ═══ MAIN WORKSPACE ═══ -->
+  <main class="workspace" id="workspace">
+
+    <!-- ─── EDITOR PANEL ─── -->
+    <section class="editor-panel" id="editor-panel">
+
+      <!-- Tab bar -->
+      <div class="tab-bar">
+        <button class="tab active" data-lang="html">
+          <span class="tab-dot dot-html"></span>HTML
+        </button>
+        <button class="tab" data-lang="css">
+          <span class="tab-dot dot-css"></span>CSS
+        </button>
+        <button class="tab" data-lang="js">
+          <span class="tab-dot dot-js"></span>JS
+        </button>
+
+        <div class="tab-spacer"></div>
+
+        <!-- Multi-file controls (future use) -->
+        <button class="btn btn-ghost icon-only tab-action" id="new-file-btn" title="New file (coming soon)" disabled>
+          <svg width="13" height="13" viewBox="0 0 16 16" fill="currentColor"><path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/><path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/></svg>
+        </button>
+      </div>
+
+      <!-- Editor panes -->
+      <div class="editor-panes">
+        <div class="editor-pane active" id="pane-html">
+          <div class="line-gutter" id="gutter-html"></div>
+          <textarea id="editor-html" class="code-area" spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off" data-lang="html"></textarea>
+        </div>
+        <div class="editor-pane" id="pane-css">
+          <div class="line-gutter" id="gutter-css"></div>
+          <textarea id="editor-css" class="code-area" spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off" data-lang="css"></textarea>
+        </div>
+        <div class="editor-pane" id="pane-js">
+          <div class="line-gutter" id="gutter-js"></div>
+          <textarea id="editor-js" class="code-area" spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off" data-lang="js"></textarea>
+        </div>
+      </div>
+    </section>
+
+    <!-- ─── RESIZER ─── -->
+    <div class="resizer" id="resizer" title="Drag to resize"></div>
+
+    <!-- ─── PREVIEW PANEL ─── -->
+    <section class="preview-panel" id="preview-panel">
+      <div class="preview-bar">
+        <div class="preview-title">
+          <span class="preview-dot"></span> Preview
+        </div>
+        <div class="preview-modes">
+          <button class="mode-btn active" data-mode="desktop" title="Desktop">
+            <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor"><path d="M0 4s0-2 2-2h12s2 0 2 2v6s0 2-2 2h-4c0 .667.083 1.167.25 1.5H11a.5.5 0 0 1 0 1H5a.5.5 0 0 1 0-1h.75c.167-.333.25-.833.25-1.5H2s-2 0-2-2V4zm1.398-.855a.758.758 0 0 0-.254.302A1.46 1.46 0 0 0 1 4.01V10c0 .325.078.502.145.602.07.105.17.188.302.254a1.464 1.464 0 0 0 .538.143L2.01 11H14c.325 0 .502-.078.602-.145a.758.758 0 0 0 .254-.302 1.464 1.464 0 0 0 .143-.538L15 9.99V4c0-.325-.078-.502-.145-.602a.757.757 0 0 0-.302-.254A1.46 1.46 0 0 0 13.99 3H2c-.325 0-.502.078-.602.145z"/></svg>
+          </button>
+          <button class="mode-btn" data-mode="tablet" title="Tablet (768px)">
+            <svg width="12" height="14" viewBox="0 0 16 16" fill="currentColor"><path d="M12 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h8zM4 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H4z"/><path d="M8 14a1 1 0 1 0 0-2 1 1 0 0 0 0 2z"/></svg>
+          </button>
+          <button class="mode-btn" data-mode="mobile" title="Mobile (375px)">
+            <svg width="10" height="14" viewBox="0 0 16 16" fill="currentColor"><path d="M11 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h6zM5 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H5z"/><path d="M8 14a1 1 0 1 0 0-2 1 1 0 0 0 0 2z"/></svg>
+          </button>
+        </div>
+        <button class="btn btn-ghost icon-only" id="refresh-btn" title="Refresh preview">
+          <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor"><path d="M11.534 7h3.932a.25.25 0 0 1 .192.41l-1.966 2.36a.25.25 0 0 1-.384 0l-1.966-2.36a.25.25 0 0 1 .192-.41zm-11 2h3.932a.25.25 0 0 0 .192-.41L2.692 6.23a.25.25 0 0 0-.384 0L.342 8.59A.25.25 0 0 0 .534 9z"/><path fill-rule="evenodd" d="M8 3c-1.552 0-2.94.707-3.857 1.818a.5.5 0 1 1-.771-.636A6.002 6.002 0 0 1 13.917 7H12.9A5.002 5.002 0 0 0 8 3zM3.1 9a5.002 5.002 0 0 0 8.757 2.182.5.5 0 1 1 .771.636A6.002 6.002 0 0 1 2.083 9H3.1z"/></svg>
+        </button>
+      </div>
+
+      <!-- Responsive preview wrapper -->
+      <div class="iframe-wrap" id="iframe-wrap">
+        <iframe
+          id="preview"
+          sandbox="allow-scripts allow-same-origin"
+          title="Live Preview"
+        ></iframe>
+      </div>
+    </section>
+  </main>
+
+  <!-- ═══ CONSOLE PANEL ═══ -->
+  <div class="console-panel" id="console-panel">
+    <div class="console-bar">
+      <div class="console-bar-left">
+        <button class="console-toggle-btn" id="console-toggle">
+          <svg width="12" height="12" viewBox="0 0 16 16" fill="currentColor"><path d="M6 9a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 0 1h-3A.5.5 0 0 1 6 9zM3.854 4.146a.5.5 0 1 0-.708.708L4.793 6.5 3.146 8.146a.5.5 0 1 0 .708.708l2-2a.5.5 0 0 0 0-.708l-2-2z"/></svg>
+          Console
+        </button>
+        <div class="console-filters" id="console-filters">
+          <button class="filter-btn active" data-filter="all">All</button>
+          <button class="filter-btn" data-filter="log">Log</button>
+          <button class="filter-btn" data-filter="warn">Warn</button>
+          <button class="filter-btn" data-filter="error">Error</button>
+        </div>
+      </div>
+      <div class="console-bar-right">
+        <span class="log-count" id="log-count">0</span>
+        <button class="btn btn-ghost icon-only" id="clear-console-btn" title="Clear console">
+          <svg width="13" height="13" viewBox="0 0 16 16" fill="currentColor"><path d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0z"/></svg>
+        </button>
+      </div>
+    </div>
+    <div class="console-output" id="console-output"></div>
+  </div>
+
+  <!-- ═══ TOAST ═══ -->
+  <div class="toast" id="toast"></div>
+
+  <script src="script.js"></script>
+</body>
+</html>
